@@ -1,0 +1,21 @@
+{
+  "name": "twitter-wordcloud",
+  "version": "1.0.0",
+  "description": "Generates a word-cloud for a given Twitter handle",
+  "main": "index.js",
+  "dependencies": {
+    "ejs": "^3.1.5",
+    "express": "^4.17.1",
+    "node-fetch": "^2.6.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "github.com/AdityaKotari/twitter-wordcloud"
+  },
+  "author": "Aditya Kotari",
+  "license": "ISC"
+}

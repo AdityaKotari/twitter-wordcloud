@@ -1,0 +1,201 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1" name="viewport">
+    <title>Twitter word-cloud</title>
+
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap" rel="stylesheet">
+
+    <style>
+        /* PC */
+        @media screen and (min-width: 601px) {
+            #head1 {
+                font-size: 10vh;
+            }
+
+            #newCloudForm {
+                font-size: 5vh;
+            }
+
+            #inputHole {
+                font-size: 4vh;
+                width: 25vh;
+                height: 6vh;
+            }
+
+            #submitButton {
+                font-size: 5vh;
+                width: 27vh;
+                height: 7vh;
+            }
+
+            #github {
+                font-size: 3vh;
+            }
+        }
+
+        /* mobile */
+        @media screen and (max-width: 900px) {
+            #head1 {
+                font-size: 12vw;
+            }
+
+            #newCloudForm {
+                font-size: 5vw;
+            }
+
+            #inputHole,
+            #submitButton {
+                font-size: 4vw;
+                width: 28vw;
+                height: 6vw;
+            }
+
+            #submitButton {
+                font-size: 5vw;
+                width: 31vw;
+                height: 8vw;
+            }
+
+            #github {
+                font-size: 3vw;
+            }
+        }
+
+        body {
+            font-family: 'Roboto Condensed', sans-serif;
+        }
+
+        #chartdiv {
+            width: 100%;
+            height: 60vh;
+            margin: 0;
+        }
+
+        #head1 {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            height: 16vh;
+            padding: 0;
+            margin: 0;
+        }
+
+        #newCloudForm {
+            width: 100%;
+            height: 16vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0;
+            margin: 0;
+        }
+
+        #inputHole {
+            border-width: 5px;
+            margin: 0;
+            font-family: 'Roboto Condensed', sans-serif;
+        }
+
+        #submitButton {
+            margin-left: 5px;
+            font-family: 'Roboto Condensed', sans-serif;
+            margin-top: 0;
+            margin-bottom: 0;
+            margin-right: 0;
+        }
+
+        #github {
+            height: 4vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0;
+            padding: 0;
+
+        }
+    </style>
+
+</head>
+
+<body>
+    <div>
+        <h1 id='head1'> Loading... </h1>
+    </div>
+    <div id="chartdiv"></div>
+    <form id="newCloudForm">
+        Twitter handle:<br>
+        <input id="inputHole" type="text" name="handle">
+        <br>
+        <input id="submitButton" type="submit" value="Submit">
+    </form>
+    <div id="github">
+        <p><a
+                href="https://github.com/AdityaKotari/twitter-wordcloud">https://github.com/AdityaKotari/twitter-wordcloud</a>
+        </p>
+    </div>
+</body>
+
+<script src="//cdn.amcharts.com/lib/4/core.js"></script>
+<script src="//cdn.amcharts.com/lib/4/charts.js"></script>
+<script src="//cdn.amcharts.com/lib/4/plugins/wordCloud.js"></script>
+<script src="//cdn.amcharts.com/lib/4/themes/animated.js"></script>
+
+<script>
+    //-------------- funcs ------------------------ 
+    async function getWordsFromProfile(handle) {
+
+        url = 'http://localhost:3000/rest/profile/' + handle;
+
+        const response = await fetch(url);
+        var words = await response.json();
+        //document.getElementById("head1").innerHTML = JSON.stringify(words);
+        document.getElementById("head1").innerHTML = handle + "'s word-cloud";
+        return words;
+    }
+
+    async function generateChart(handle) {
+        var words = await getWordsFromProfile(handle);
+
+        //am word cloud stuff
+        am4core.useTheme(am4themes_animated);
+        var chart = am4core.create("chartdiv", am4plugins_wordCloud.WordCloud);
+        var series = chart.series.push(new am4plugins_wordCloud.WordCloudSeries());
+        series.data = words;
+        series.dataFields.word = "word";
+        chart.fontFamily = "Roboto Condensed";
+        //series.Layout.randomness = "0";
+        //series.Layout.maxFontSize = "30%";
+        //series.Layout.minFontSize = "5%";
+        series.dataFields.value = "count";
+        series.labels.template.tooltipText = "{word}:\n[bold]{value}[/]";
+    }
+
+    function sendAway(event){
+        event.preventDefault();
+        
+        document.getElementById("head1").innerHTML = "sent away";
+        
+        url = "/"+form["handle"].value;
+        window.location.replace(url);
+
+        return false;
+    }
+
+
+
+    //----------- control flow ----------------------
+    var pf = "<%=profile%>";
+    generateChart(pf);
+
+    var form = document.getElementById('newCloudForm');
+    form.addEventListener('submit', sendAway);
+
+</script>
+
+</html>
