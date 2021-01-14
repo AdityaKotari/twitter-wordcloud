@@ -84,6 +84,7 @@
             height: 16vh;
             padding: 0;
             margin: 0;
+            text-align: center;
         }
 
         #newCloudForm {
@@ -129,7 +130,7 @@
     </div>
     <div id="chartdiv"></div>
     <form id="newCloudForm">
-        Twitter handle:<br>
+        Try someone else's Twitter handle:<br>
         <input id="inputHole" type="text" name="handle">
         <br>
         <input id="submitButton" type="submit" value="Submit">
@@ -150,7 +151,7 @@
     //-------------- funcs ------------------------ 
     async function getWordsFromProfile(handle) {
 
-        url = 'http://localhost:3000/rest/profile/' + handle;
+        url = '/rest/profile/' + handle;
 
         const response = await fetch(url);
         var words = await response.json();
@@ -179,7 +180,7 @@
     function sendAway(event){
         event.preventDefault();
         
-        document.getElementById("head1").innerHTML = "sent away";
+        document.getElementById("head1").innerHTML = "Loading...";
         
         url = "/"+form["handle"].value;
         window.location.replace(url);

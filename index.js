@@ -3,7 +3,7 @@ const app = express()
 
 const fetch = require("node-fetch");
 
-const port = 3000
+const port = process.env.PORT;
 
 app.set('view engine', 'ejs');
 
@@ -68,7 +68,7 @@ const parseTweets = async (tweets) => {
 //---------Making GET requests to twitter---------------------
 
 //you need a bearer code from your twitter dev account here
-bearer = "";
+bearer = process.env.twitterBearer;
 
 const defaultFetchOptions = {
     method: 'GET',
