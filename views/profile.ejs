@@ -68,6 +68,8 @@
 
         body {
             font-family: 'Roboto Condensed', sans-serif;
+            background-color: #181818;
+            color: #cecece;
         }
 
         #chartdiv {
@@ -155,34 +157,45 @@
 
         const response = await fetch(url);
         var words = await response.json();
-        //document.getElementById("head1").innerHTML = JSON.stringify(words);
+        if(words==null||words.length==0){
+            alert('No words found. The given account may not exist or have any public tweets.');
+        }
         document.getElementById("head1").innerHTML = handle + "'s word-cloud";
         return words;
     }
 
     async function generateChart(handle) {
-        var words = await getWordsFromProfile(handle);
+        var parsedData = await getWordsFromProfile(handle);
 
         //am word cloud stuff
         am4core.useTheme(am4themes_animated);
         var chart = am4core.create("chartdiv", am4plugins_wordCloud.WordCloud);
         var series = chart.series.push(new am4plugins_wordCloud.WordCloudSeries());
-        series.data = words;
+        series.data = parsedData.words;
         series.dataFields.word = "word";
         chart.fontFamily = "Roboto Condensed";
-        //series.Layout.randomness = "0";
-        //series.Layout.maxFontSize = "30%";
-        //series.Layout.minFontSize = "5%";
         series.dataFields.value = "count";
+        series.heatRules.push({
+            "target": series.labels.template,
+            "property": "fill",
+            "min": am4core.color("#3c00c9"),
+            "max": am4core.color("#6800c9"),
+            "dataField": "value"
+        });
         series.labels.template.tooltipText = "{word}:\n[bold]{value}[/]";
+        series.accuracy=4;
+        //series.randomness=.25;
+        //series.minFontSize="10%";
+        //series.maxFontSize="50%";
+        //document.getElementById("github").innerHTML=""+series.minFontSize+", "+series.maxFontSize;
     }
 
-    function sendAway(event){
+    function sendAway(event) {
         event.preventDefault();
-        
+
         document.getElementById("head1").innerHTML = "Loading...";
-        
-        url = "/"+form["handle"].value;
+
+        url = "/" + form["handle"].value;
         window.location.replace(url);
 
         return false;
