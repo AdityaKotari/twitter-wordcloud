@@ -6,7 +6,7 @@
 
 * Pulls up to 3600 tweets from a public user's timeline.
 
-* Uses [amchart](https://www.amcharts.com/)'s library(with good documentation) to generate a word-cloud. Displays the top 200 most frequent words.
+* Uses [amchart](https://www.amcharts.com/) to generate a word-cloud(of the 250 most frequent words).
 
 * Does sentiment analysis for their last 5 tweets.
 
