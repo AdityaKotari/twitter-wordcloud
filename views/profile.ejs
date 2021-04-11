@@ -10,11 +10,38 @@
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap" rel="stylesheet">
 
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+            
+
     <style>
+        #tabla{
+            border-width: 5px;
+            border-color: #181818;
+            margin-left: auto;
+            margin-right: auto;
+            width: 80vw;
+            color: #181818;
+        }
+
+        th, td, tr{
+            
+            border-color: #181818;
+            text-align: center;
+        }
+        th{
+            background-color: #b9b1b1;
+        }
+        td, tr{
+            background-color: #cecece;
+        }
         /* PC */
         @media screen and (min-width: 601px) {
             #head1 {
-                font-size: 10vh;
+                font-size: 8vh;
             }
 
             #newCloudForm {
@@ -40,8 +67,8 @@
 
         /* mobile */
         @media screen and (max-width: 900px) {
-            #head1 {
-                font-size: 12vw;
+            .head1 {
+                font-size: 10vw;
             }
 
             #newCloudForm {
@@ -74,11 +101,11 @@
 
         #chartdiv {
             width: 100%;
-            height: 60vh;
+            height: 70vh;
             margin: 0;
         }
 
-        #head1 {
+        .head1 {
             display: flex;
             align-items: center;
             justify-content: center;
@@ -128,20 +155,40 @@
 
 <body>
     <div>
-        <h1 id='head1'> Loading... </h1>
+        <h1 class='head1'> Loading... </h1>
     </div>
+
+    
+    
     <div id="chartdiv"></div>
+    
+    <div>
+        <h1 class='head1'>Loading...</h1>
+    </div>
+    <div>
+        <table id="tabla">
+            <tr>
+              <th>Tweet</th>
+              <th>Sentiment analysis (0 is neutral, larger is more positive)</th>
+              
+            </tr>
+            
+          </table>
+    </div>
+
     <form id="newCloudForm">
         Try someone else's Twitter handle:<br>
         <input id="inputHole" type="text" name="handle">
         <br>
         <input id="submitButton" type="submit" value="Submit">
     </form>
+
     <div id="github">
         <p><a
                 href="https://github.com/AdityaKotari/twitter-wordcloud">https://github.com/AdityaKotari/twitter-wordcloud</a>
         </p>
     </div>
+
 </body>
 
 <script src="//cdn.amcharts.com/lib/4/core.js"></script>
@@ -160,18 +207,23 @@
         if(words==null||words.length==0){
             alert('No words found. The given account may not exist or have any public tweets.');
         }
-        document.getElementById("head1").innerHTML = handle + "'s word-cloud";
+        document.getElementsByClassName("head1")[0].innerHTML = handle + "'s word-cloud";
         return words;
     }
 
-    async function generateChart(handle) {
+    async function generateContent(handle) {
         var parsedData = await getWordsFromProfile(handle);
-
+        var wordlist=parsedData.words;
+      
+        if(screen.width<800&&wordlist.length>131){
+            wordlist=wordlist.slice(0, 130);
+        }
+        
         //am word cloud stuff
         am4core.useTheme(am4themes_animated);
         var chart = am4core.create("chartdiv", am4plugins_wordCloud.WordCloud);
         var series = chart.series.push(new am4plugins_wordCloud.WordCloudSeries());
-        series.data = parsedData.words;
+        series.data =wordlist;
         series.dataFields.word = "word";
         chart.fontFamily = "Roboto Condensed";
         series.dataFields.value = "count";
@@ -184,16 +236,12 @@
         });
         series.labels.template.tooltipText = "{word}:\n[bold]{value}[/]";
         series.accuracy=4;
-        //series.randomness=.25;
-        //series.minFontSize="10%";
-        //series.maxFontSize="50%";
-        //document.getElementById("github").innerHTML=""+series.minFontSize+", "+series.maxFontSize;
     }
 
     function sendAway(event) {
         event.preventDefault();
 
-        document.getElementById("head1").innerHTML = "Loading...";
+        //document.getElementsByClass("head1")[1].innerHTML = "Sentiment analysis";
 
         url = "/" + form["handle"].value;
         window.location.replace(url);
@@ -201,11 +249,32 @@
         return false;
     }
 
+        
+
+    const generateAnalysis = async (profile) => {
+        const url = '/rest/analysis/'+profile;
+        
+        fetch(url).then((stuff) =>{
+            return stuff.json() 
+        }).then( (stuff) => {
+            console.log(stuff)
+            stuff.forEach(element => {
+                document.getElementById('tabla').innerHTML+=
+                "<tr><td>"+element.text+"</td><td>"+element.analysis+"</td></tr>" 
+            });
+            document.getElementsByClassName('head1')[1].innerHTML=stuff.length+ " most recent tweets"
+            
+        })
+        
+    }
+
 
 
     //----------- control flow ----------------------
     var pf = "<%=profile%>";
-    generateChart(pf);
+    generateContent(pf);
+
+    generateAnalysis(pf);
 
     var form = document.getElementById('newCloudForm');
     form.addEventListener('submit', sendAway);
