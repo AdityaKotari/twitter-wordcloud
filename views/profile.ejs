@@ -101,7 +101,7 @@
 
         #chartdiv {
             width: 100%;
-            height: 70vh;
+            height: 65vh;
             margin: 0;
         }
 
@@ -118,7 +118,7 @@
 
         #newCloudForm {
             width: 100%;
-            height: 16vh;
+            height: 12vh;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -158,7 +158,12 @@
         <h1 class='head1'> Loading... </h1>
     </div>
 
-    
+    <form id="newCloudForm">
+        Try someone else's Twitter handle:<br>
+        <input id="inputHole" type="text" name="handle">
+        <br>
+        <input id="submitButton" type="submit" value="Submit">
+    </form>
     
     <div id="chartdiv"></div>
     
@@ -176,12 +181,7 @@
           </table>
     </div>
 
-    <form id="newCloudForm">
-        Try someone else's Twitter handle:<br>
-        <input id="inputHole" type="text" name="handle">
-        <br>
-        <input id="submitButton" type="submit" value="Submit">
-    </form>
+    
 
     <div id="github">
         <p><a
@@ -216,7 +216,7 @@
         var wordlist=parsedData.words;
       
         if(screen.width<800&&wordlist.length>131){
-            wordlist=wordlist.slice(0, 130);
+            wordlist=wordlist.slice(0, 100);
         }
         
         //am word cloud stuff
