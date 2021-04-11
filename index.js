@@ -8,7 +8,7 @@ const { MongoClient } = require("mongodb");
 const SW = require('stopword')
 
 const fetch = require("node-fetch");
-const port = 3000 || process.env.PORT;
+const port = process.env.PORT || 3000 ;
 //const port = process.env.PORT;
 
 const natural = require('natural');
