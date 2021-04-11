@@ -65,8 +65,8 @@ app.get('/rest/profile/:profile', async (req, res) => {
 
 app.get('/rest/analysis/:profile', async (req, res) => {
     let tweets = await getTweetsFromAPI(req.params.profile, 1);
-    if(tweets.length>15){
-        tweets = tweets.slice(0, 15);
+    if(tweets.length>5){
+        tweets = tweets.slice(0, 5);
     }
     const analysedTweets = await analyseTweets(tweets);
     res.json(analysedTweets);
