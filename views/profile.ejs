@@ -169,7 +169,7 @@
         <table id="tabla">
             <tr>
               <th>Tweet</th>
-              <th>Sentiment (0 is neutral, larger is more positive)</th>
+              <th>Sentiment analysis (0 is neutral, larger is more positive)</th>
               
             </tr>
             
@@ -262,7 +262,7 @@
                 document.getElementById('tabla').innerHTML+=
                 "<tr><td>"+element.text+"</td><td>"+element.analysis+"</td></tr>" 
             });
-            document.getElementsByClassName('head1')[1].innerHTML="Sentiment Analysis of "+stuff.length+ " tweets"
+            document.getElementsByClassName('head1')[1].innerHTML=stuff.length+ " most recent tweets"
             
         })
         
