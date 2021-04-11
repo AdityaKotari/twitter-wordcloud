@@ -1,5 +1,7 @@
 # twitter-wordcloud
 
+### Now takes multiple whole seconds to load!
+
  A nodejs web app that makes a word cloud using the tweets of a specified profile. 
  
 * Demo hosted [here](https://cloud-twitter.herokuapp.com/).
