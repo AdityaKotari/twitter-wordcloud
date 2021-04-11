@@ -104,7 +104,7 @@ const parseTweets = async (tweets) => {
         
         //the simple counting part
         temp = tweet.text.split(' ');
-        const customStopwords=['&amp;', "i'm"]
+        const customStopwords=['&amp;', "i'm", "rt", ]
         temp=SW.removeStopwords(temp, [...SW.en, ...customStopwords])
 
         temp.forEach(word => {
