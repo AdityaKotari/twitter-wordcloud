@@ -4,9 +4,15 @@
   "description": "Generates a word-cloud for a given Twitter handle",
   "main": "index.js",
   "dependencies": {
+    "apos-to-lex-form": "^1.0.5",
+    "dotenv": "^8.2.0",
     "ejs": "^3.1.5",
     "express": "^4.17.1",
+    "mongodb": "^3.6.4",
+    "mongoose": "^5.11.15",
+    "natural": "^5.0.3",
     "node-fetch": "^2.6.1",
+    "spelling-corrector": "^3.0.0",
     "stopword": "^1.0.6"
   },
   "devDependencies": {},
