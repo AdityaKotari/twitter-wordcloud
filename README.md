@@ -1,7 +1,6 @@
 # Twitter-wordcloud
 
-#### Hosted on https://cloud-twitter.herokuapp.com/
-
+#### Hosted on https://cloud-twitter.herokuapp.com/ - might take a few seconds to load depending on heroku.
  
  
 A web-app that 
