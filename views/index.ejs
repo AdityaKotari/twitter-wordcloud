@@ -160,7 +160,7 @@
 
     <form id="newCloudForm">
         Try someone else's Twitter handle:<br>
-        <input id="inputHole" type="text" name="handle">
+        <input id="inputHole" type="text" name="handle" style="color: antiquewhite !important;">
         <br>
         <input id="submitButton" type="submit" value="Submit">
     </form>
@@ -168,7 +168,7 @@
     <div id="chartdiv"></div>
     
     <div>
-        <h1 class='head1'>Loading...</h1>
+        <h1 class="head1">Loading...</h1>
     </div>
     <div>
         <table id="tabla">
@@ -200,7 +200,7 @@
     //-------------- funcs ------------------------ 
     async function getWordsFromProfile(handle) {
 
-        url = '/rest/profile/' + handle;
+        url = '/rest/parsed/freq/' + handle;
 
         const response = await fetch(url);
         var words = await response.json();
@@ -252,7 +252,7 @@
         
 
     const generateAnalysis = async (profile) => {
-        const url = '/rest/analysis/'+profile;
+        const url = '/rest/parsed/sentiment/'+profile;
         
         fetch(url).then((stuff) =>{
             return stuff.json() 
@@ -260,7 +260,7 @@
             console.log(stuff)
             stuff.forEach(element => {
                 document.getElementById('tabla').innerHTML+=
-                "<tr><td>"+element.text+"</td><td>"+element.analysis+"</td></tr>" 
+                "<tr><td>"+element.tweet+"</td><td>"+element.sentiment+"</td></tr>" 
             });
             document.getElementsByClassName('head1')[1].innerHTML=stuff.length+ " most recent tweets"
             

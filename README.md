@@ -1,18 +1,18 @@
-# twitter-wordcloud
+# Twitter-wordcloud
 
-### Now takes multiple whole seconds to load!
+#### Hosted on https://cloud-twitter.herokuapp.com/
 
- A nodejs web app that makes a word cloud using the tweets of a specified profile. 
  
-* Demo hosted [here](https://cloud-twitter.herokuapp.com/).
+ 
+A web-app that 
 
-* Pulls up to 3600 tweets from a public user's timeline.
-
-* Uses [amchart](https://www.amcharts.com/) to generate a word-cloud(of the 250 most frequent words).
-
-* Does sentiment analysis for their last 5 tweets.
+* Scraps the last 100 tweets from any public twitter account
+* Visualizes this in the form of a word cloud
+* Provides sentiment analysis of the latest 10 tweets
 
 Starts off at Elon Musk's twitter as an example, but should work for any public twitter account. 
 
-Needs Twitter API keys to run locally.
+The general processing of text for the wordcloud is a lot simpler than what's used for the sentiment analysis, in order to decrease load times.
+
+Needs Twitter API key to run locally. 
 
