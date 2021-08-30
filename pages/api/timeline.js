@@ -1,5 +1,5 @@
 
-export default async function (req, res) {
+export default async function handler(req, res) {
     return new Promise((resolve) => {
         const {user_id, max_tweets }= req.body
         console.log(user_id)

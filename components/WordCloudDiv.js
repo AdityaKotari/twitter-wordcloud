@@ -4,7 +4,7 @@ import WordCloud from "react-d3-cloud"
 
 const WordCloudDiv = (props) => {
     console.log(props.wordFreq)
-    const fontSize = useCallback((word) => word.value * 5)
+    const fontSize = (word) => word.value * 5
     return (
         <div id="word-cloud">
             {typeof window !== "undefined" && (
