@@ -6,6 +6,7 @@ import router from "next/router"
 
 const Home = () => {
     const [username, setUsername] = useState("")
+    
 
     const handleChange = (e) => {
         e.preventDefault()
@@ -27,10 +28,12 @@ const Home = () => {
                 <link rel="icon" href="/favicon.ico" />
             </Head>
             <main>
-                <div className="wrapper">
-                    <div className="typing-demo">Type in a Twitter handle</div>
+                <div>
+                    <p className = "hellotext one">Whose Twitter</p>
+                    <p className = "hellotext two">Do you want us to find?</p>
                 </div>
                 <form onSubmit={handleSubmit}>
+                    <span className="hello-input-text"> {(typeof window !== "undefined" && window.innerWidth >=960)? "Twitter handle ":""}
                     <TextField
                         id="standard-basic"
                         InputProps={{
@@ -39,6 +42,7 @@ const Home = () => {
                         onChange={handleChange}
                         onPaste={handleChange}
                     />
+                    </span>
                 </form>
             </main>
         </div>

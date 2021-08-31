@@ -2,13 +2,7 @@ let stopwords = `
 &amp
 &amps
 a
-able
-about
-above
 abst
-accordance
-according
-accordingly
 across
 act
 actually
@@ -20,7 +14,6 @@ affects
 after
 afterwards
 again
-against
 ah
 all
 almost
@@ -47,7 +40,6 @@ anyway
 anyways
 anywhere
 apparently
-approximately
 are
 aren
 arent
@@ -59,14 +51,12 @@ ask
 asking
 at
 auth
-available
 away
 awfully
 b
 back
 be
 became
-because
 become
 becomes
 becoming
@@ -146,12 +136,7 @@ etc
 even
 ever
 every
-everybody
-everyone
-everything
-everywhere
 ex
-except
 f
 far
 few
@@ -249,7 +234,8 @@ i've
 j
 just
 k
-keep	keeps
+keep
+keeps
 kept
 kg
 km
@@ -421,11 +407,7 @@ regardless
 regards
 related
 relatively
-research
 respectively
-resulted
-resulting
-results
 right
 run
 s
@@ -470,17 +452,7 @@ six
 slightly
 so
 some
-somebody
-somehow
-someone
-somethan
-something
-sometime
-sometimes
-somewhat
-somewhere
 soon
-sorry
 specifically
 specified
 specify
@@ -495,7 +467,8 @@ such
 sufficiently
 suggest
 sup
-sure	t
+sure
+t
 take
 taken
 taking
@@ -503,9 +476,6 @@ tell
 tends
 th
 than
-thank
-thanks
-thanx
 that
 that'll
 thats
@@ -646,26 +616,28 @@ with
 within
 without
 wont
-words
-world
 would
 wouldnt
+something
+someone
+somebody
+someone
+2
 www
 x
 y
-yes
-yet
 you
-youd
-you'll
 your
-youre
-yours
-yourself
+i'd
+about
+will
+yes
 yourselves
 you've
-z
-zero`
+rt
+people
+&gt
+z`
 
 stopwords = new Set(stopwords.split("\n"))
 
@@ -675,7 +647,7 @@ const words = async (timeline) => {
         return null
     }
     timeline.forEach((tweet) => {
-        let split_text = tweet.text.split(/\.| |;|,|\)|\(/g)
+        let split_text = tweet.text.split(/[…\. ,\)\(;"“]+/g)
         split_text.forEach((word) => {
             word = word.toLowerCase()
             if (
