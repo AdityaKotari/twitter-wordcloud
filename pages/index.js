@@ -1,7 +1,6 @@
 import Head from "next/head"
 import { useEffect, useState } from "react"
 
-import { TextField, Typography, InputAdornment } from "@material-ui/core"
 import router from "next/router"
 
 const Home = () => {
@@ -33,12 +32,9 @@ const Home = () => {
                     <p className = "hellotext two">Do you want us to find?</p>
                 </div>
                 <form onSubmit={handleSubmit}>
-                    <span className="hello-input-text"> {(typeof window !== "undefined" && window.innerWidth >=960)? "Twitter handle ":""}
-                    <TextField
-                        id="standard-basic"
-                        InputProps={{
-                          startAdornment: <InputAdornment position="start">@</InputAdornment>,
-                        }}
+                    <span className="hello-input-text">Twitter handle: &nbsp;@
+                    <input className="hello-input hello-input-text"
+                        
                         onChange={handleChange}
                         onPaste={handleChange}
                     />

@@ -643,6 +643,7 @@ stopwords = new Set(stopwords.split("\n"))
 
 const words = async (timeline) => {
     let words = new Map()
+    let friends = new Map()
     if (!timeline) {
         return null
     }
@@ -650,8 +651,18 @@ const words = async (timeline) => {
         let split_text = tweet.text.split(/[…\. ,\)\(;"“]+/g)
         split_text.forEach((word) => {
             word = word.toLowerCase()
+            if(word.charAt(0)==='@'){
+                var temp = ""
+                if(word.charAt(word.length - 1)===':'){
+                    temp = word.substring(1, word.length - 1)
+                } 
+                else{
+                    temp = word.substring(1, word.length)
+                }
+                friends.set(temp, (friends.get(temp) || 0) + 1)
+                return
+            }
             if (
-                word.charAt(0) == "@" ||
                 stopwords.has(word) ||
                 word.substring(0, 5) === "https"
             ) {
@@ -663,14 +674,23 @@ const words = async (timeline) => {
             
         })
     })
-    var temp = []
+    var words_sorted = []
     words.forEach((count, word, map) => {
-        temp.push({ text: String(word), value: Number(count) })
+        words_sorted.push({ text: String(word), value: Number(count) })
     })
-    temp.sort((a, b) => {
+    words_sorted.sort((a, b) => {
         return b.value - a.value
     })
-    return temp
+
+    var friends_sorted = []
+    friends.forEach((count, word, map) => {
+        friends_sorted.push({ text: String(word), value: Number(count) })
+    })
+
+    friends_sorted.sort((a, b) => {
+        return b.value - a.value
+    })
+    return {words: words_sorted, friends: friends_sorted} 
 }
 
 export default words

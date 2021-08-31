@@ -3,13 +3,19 @@ import { useRouter } from "next/router"
 import { useEffect, useState, useCallback } from "react"
 import words from "../utility/words.js"
 import WordCloudDiv from "../components/WordCloudDiv.js"
-import Loading from "../components/Loading.js"
-import { Typography } from "@material-ui/core"
+import FriendsList from "../components/FriendsList.js"
 
 const StatsPage = () => {
     const router = useRouter()
     const [wordFreq, setWordFreq] = useState(null)
+    const [friends, setFriends] = useState(null)
     const username = router.query.username
+
+    const redirect_to_user = () => {
+        router.push(`https://twitter.com/${username}`)
+    }
+
+
     useEffect(async () => {
         if (!username) {
             return
@@ -34,8 +40,9 @@ const StatsPage = () => {
                 }),
             })
             timeline = await timeline.json()
-            var temp = await words(timeline)
-            setWordFreq(temp)
+            const temp = await words(timeline)
+            setWordFreq(temp.words)
+            setFriends(temp.friends)
         }
     }, [username])
     return (
@@ -48,8 +55,17 @@ const StatsPage = () => {
                 />
                 <link rel="icon" href="/favicon.ico" />
             </Head>
-            <a className="username" href={`https://twitter.com/${username}`}>@{username}</a>
+            <p className="username" onClick={redirect_to_user}>@{username}</p>
+            <hr></hr>
+            <p className="stats-headings">The People they tweet at the most often:</p>
+            <FriendsList friends={friends}></FriendsList>
+            <hr></hr>
+            <p className="stats-headings">The Things they tweet about:</p>
             <WordCloudDiv wordFreq={wordFreq}></WordCloudDiv>
+            <hr></hr>
+            <p className="stats-headings">Add to the code or make suggestions at</p>
+            <a href="https://github.com/AdityaKotari/twitter-wordcloud" className="stats-headings">github.com/AdityaKotari/twitter-wordcloud</a>    
+            <hr></hr>        
         </div>
     )
 }

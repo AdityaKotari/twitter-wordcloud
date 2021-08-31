@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat&family=Roboto+Slab&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Raleway&family=Montserrat&family=Roboto+Slab&display=swap');
 
 .hellotext {
     color: black;
@@ -10,12 +10,24 @@
 .hello-input-text{
     color: black;
     font-family: 'Roboto Slab', serif;
-    text-align: center;
-    margin: auto;
 }
 .username{
     font-family: Montserrat, sans-serif;
-    font-weight: 400;
+    font-weight: 500;
+}
+.hello-input{
+    border-top: 0;
+    border-left: 0;
+    border-right: 0;
+}
+.stats-headings{
+    font-family: Montserrat, sans-serif;
+    font-weight: 300;
+    margin: 30px;
+    font-size: 2em;
+}
+.friend-position, .friend-text{
+    font-family: 'Raleway', sans-serif;
 }
 @media screen and (min-width: 960px) {
     .one {
@@ -34,6 +46,7 @@
     }
     .username{
         font-size: 75px;
+        margin: 75px;
     }
 }
 @media screen and (max-width: 960px) {
@@ -46,12 +59,13 @@
     .two {
         font-weight: 200;
         font-size: 1.2em;
-        padding-bottom: 50px;
+        padding-bottom: 75px;
     }
     .hello-input-text{
         font-size: 1em;
     }
     .username{
         font-size: 40px;
+        margin: 30px;
     }
 }
