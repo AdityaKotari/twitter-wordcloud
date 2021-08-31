@@ -28,8 +28,15 @@ const Home = () => {
             </Head>
             <main>
                 <div>
+                    {
+                    (typeof window !== "undefined" && router.query.error) &&(
+                    <div>
+                    <p className="error-alert"> That Twitter profile does not exist or is private. <br/>Try again!</p>
+                    <hr></hr>
+                    </div>)
+                    }
                     <p className = "hellotext one">Whose Twitter</p>
-                    <p className = "hellotext two">Do you want us to find?</p>
+                    <p className = "hellotext two">Do you want to find?</p>
                 </div>
                 <form onSubmit={handleSubmit}>
                     <span className="hello-input-text">Twitter handle: &nbsp;@

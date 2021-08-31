@@ -4,6 +4,7 @@ import { useEffect, useState, useCallback } from "react"
 import words from "../utility/words.js"
 import WordCloudDiv from "../components/WordCloudDiv.js"
 import FriendsList from "../components/FriendsList.js"
+import GithubLink from "../components/GithubLink.js"
 
 const StatsPage = () => {
     const router = useRouter()
@@ -30,7 +31,7 @@ const StatsPage = () => {
         user = await user.json()
         console.log(user)
         if (user.error) {
-            alert("User could not be found!")
+            router.push("/?error=nouser")
         } else {
             var timeline = await fetch("/api/timeline", {
                 method: "POST",
@@ -63,9 +64,7 @@ const StatsPage = () => {
             <p className="stats-headings">The Things they tweet about:</p>
             <WordCloudDiv wordFreq={wordFreq}></WordCloudDiv>
             <hr></hr>
-            <p className="stats-headings">Add to the code or make suggestions at</p>
-            <a href="https://github.com/AdityaKotari/twitter-wordcloud" className="stats-headings">github.com/AdityaKotari/twitter-wordcloud</a>    
-            <hr></hr>        
+            <GithubLink/>
         </div>
     )
 }

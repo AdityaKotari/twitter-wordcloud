@@ -10,11 +10,8 @@ const FriendsList = (props) => {
         let list = []
         for (let i = 0; i < Math.min(10, props.friends.length); i++) {
             list.push(
-                <p>
-                    {/* <span className="friend-position">
-                        {i + 1}&nbsp;-&nbsp;
-                    </span> */}
-                    <span className="friend-text">{i==0?"🏆":""}&nbsp;{`${props.friends[i].text}`}</span>{" "}
+                <p key={`friend-${i+1}`}>
+                    <span className="friend-text"><b>{`${i+1}.`}</b> {`${props.friends[i].text}`}</span>
                 </p>
             )
         }

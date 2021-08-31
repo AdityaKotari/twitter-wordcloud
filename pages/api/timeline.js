@@ -8,7 +8,7 @@ export default async function handler(req, res) {
             return resolve()
         } else {
             fetch(
-                `https://api.twitter.com/2/users/${user_id}/tweets?exclude=&max_results=${Math.min(10, max_tweets || 100)}`,
+                `https://api.twitter.com/2/users/${user_id}/tweets?exclude=&max_results=${Math.min(100, max_tweets || 100)}`,
                 {
                     method: "GET",
                     headers: new Headers({
