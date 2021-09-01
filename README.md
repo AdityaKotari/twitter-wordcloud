@@ -1,9 +1,17 @@
 # Twitter Wordcloud/stats
-Web app that fetches the last 100 tweets from any public Twitter account and visualizes some data(for now, a wordcloud).
 
-Uses the Twitter API v2. This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app). 
 
 ###### Deployed with Vercel at [https://twitter-wordcloud.vercel.app/](https://twitter-wordcloud.vercel.app/)
+
+Web app that fetches the last 100 tweets from any public Twitter account and displays:
+- 10 most referenced profiles
+- A word cloud (using the frequency of tokens from all the tweets)
+- 5 positive and 5 negative tweets found using sentiment analysis
+
+This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app). Uses the Twitter APIv2 to fetch tweets. 
+
+The sentiment analysis was done using [sentiment](https://www.npmjs.com/package/sentiment). The package was picked for its performance and uses AFINN directly(and may not be very accurate). More details on how it works on its [homepage](https://github.com/thisandagain/sentiment#how-it-works).
+
 
 ## Running it locally:
 First, run the development server:
