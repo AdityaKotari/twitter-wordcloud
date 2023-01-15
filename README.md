@@ -1,7 +1,8 @@
 # Twitter Wordcloud/stats
 
 
-###### Deployed with Vercel at [https://twitter-wordcloud.vercel.app/](https://twitter-wordcloud.vercel.app/)
+###### Deployed with Vercel at [https://twitter-wordcloud.vercel.app/](https://twitter-wordcloud.vercel.app/) 
+###### (may not work right now because of changes in the Twitter API. Investigating!)
 
 Web app that fetches the last 100 tweets from any public Twitter account and displays:
 - 10 most referenced profiles
